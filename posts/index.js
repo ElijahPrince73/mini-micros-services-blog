@@ -35,6 +35,12 @@ app.post("/posts", async (req, res) => {
   res.status(201).send(posts);
 });
 
+app.post("/events", async (req, res) => {
+  console.log("recieved evetn", req.body.type);
+
+  res.send({ status: 200 });
+});
+
 app.listen(4000, (req, res) => {
   console.log("listing on 4000");
 });

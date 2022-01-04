@@ -37,6 +37,12 @@ app.post("/posts/:id/comments", async (req, res) => {
   res.status(201).send(comments);
 });
 
+app.post("/events", async (req, res) => {
+  console.log("recieved evetn", req.body.type);
+
+  res.send({ status: 200 });
+});
+
 app.listen(4001, (req, res) => {
   console.log("listing on 4001");
 });
