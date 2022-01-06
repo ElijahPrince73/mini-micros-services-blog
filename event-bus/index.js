@@ -19,6 +19,11 @@ app.post("/events", (req, res) => {
     console.log(err);
   });
 
+  // Moderation
+  axios.post("http://localhost:4003/events", event).catch((err) => {
+    console.log(err);
+  });
+
   // Query Service
   axios.post("http://localhost:4002/events", event).catch((err) => {
     console.log(err);

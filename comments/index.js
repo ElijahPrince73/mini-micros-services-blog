@@ -9,11 +9,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const commentsByPostId = {};
-
 app.get("/posts/:id/comments", (req, res) => {
   res.send(commentsByPostId[req.params.id] || []);
 });
-
 app.post("/posts/:id/comments", async (req, res) => {
   const commentId = randomBytes(4).toString("hex");
 
@@ -21,15 +19,16 @@ app.post("/posts/:id/comments", async (req, res) => {
 
   const comments = commentsByPostId[req.params.id] || [];
 
-  comments.push({ id: commentId, content });
+  const commentData = { id: commentId, content, status: "pending" };
+
+  comments.push(commentData);
 
   commentsByPostId[req.params.id] = comments;
 
   await axios.post("http://localhost:4005/events", {
     type: "CommentCreated",
     data: {
-      id: commentId,
-      content,
+      ...commentData,
       postId: req.params.id,
     },
   });
@@ -38,7 +37,7 @@ app.post("/posts/:id/comments", async (req, res) => {
 });
 
 app.post("/events", async (req, res) => {
-  console.log("recieved evetn", req.body.type);
+  console.log("recieved event", req.body.type);
 
   res.send({ status: 200 });
 });
