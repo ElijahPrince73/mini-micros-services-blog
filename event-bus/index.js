@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 app.post("/events", (req, res) => {
   const event = req.body;
-
+  console.log(event);
   // Posts service
   axios.post("http://localhost:4000/events", event).catch((err) => {
     console.log(err);
@@ -19,13 +19,13 @@ app.post("/events", (req, res) => {
     console.log(err);
   });
 
-  // Moderation
-  axios.post("http://localhost:4003/events", event).catch((err) => {
+  // Query Service
+  axios.post("http://localhost:4002/events", event).catch((err) => {
     console.log(err);
   });
 
-  // Query Service
-  axios.post("http://localhost:4002/events", event).catch((err) => {
+  // Moderation
+  axios.post("http://localhost:4003/events", event).catch((err) => {
     console.log(err);
   });
 
